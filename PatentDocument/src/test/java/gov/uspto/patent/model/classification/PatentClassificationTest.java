@@ -1,6 +1,9 @@
 package gov.uspto.patent.model.classification;
 
+import static org.hamcrest.CoreMatchers.either;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
@@ -111,8 +114,8 @@ public class PatentClassificationTest {
 
 		assertEquals(classes.get(ClassificationType.CPC).size(), 2);
 		CpcClassification ret1 = (CpcClassification) classes.get(ClassificationType.CPC).iterator().next();
-		assertEquals(cpcClass2, ret1);
-		
+		assertThat(ret1, either(is(cpcClass)).or(is(cpcClass2)));
+
 		assertEquals(classes.get(ClassificationType.IPC).size(), 1);
 		assertEquals(classes.get(ClassificationType.USPC).size(), 1);
 	}

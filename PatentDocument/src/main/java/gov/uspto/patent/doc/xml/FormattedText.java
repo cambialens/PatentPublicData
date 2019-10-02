@@ -324,7 +324,7 @@ public class FormattedText implements TextProcessor {
 
 			for (Element el : document.select("span[class=math]")) {
 				try {
-					String html = new String(Base64.getDecoder().decode(el.html()), "utf-16");
+					String html = new String(Base64.getDecoder().decode(el.html()), "utf-8");
 					el.text("");
 					el.append(html);
 				} catch (UnsupportedEncodingException e) {

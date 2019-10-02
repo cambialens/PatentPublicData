@@ -22,9 +22,9 @@ public class FormattedTextCustomizeTest {
         stb.append("</maths></p>");
 
         StringBuilder expectStb = new StringBuilder();
-        expectStb.append("<h4 id=\"h-1\">SECTION TITLE</h4>");
-        expectStb.append("<p><span id=\"MTH-0001\" class=\"math\" format=\"mathml\">");
-        expectStb.append("<math><mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mrow><mn>4</mn><mo>+</mo><mi>x</mi></mrow><mo>+</mo><mn>4</mn></mrow><mo>=</mo><mn>0</mn></mrow></math></span></p>");
+        expectStb.append("<h4 id=\"h-1\">SECTION TITLE</h4>\n");
+        expectStb.append("<p>\n <span id=\"MTH-0001\" class=\"math\" format=\"mathml\">");
+        expectStb.append("<math><mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mrow><mn>4</mn><mo>+</mo><mi>x</mi></mrow><mo>+</mo><mn>4</mn></mrow><mo>=</mo><mn>0</mn></mrow></math></span>\n</p>");
         String expect = expectStb.toString();
 
         String actual = format.getSimpleHtml(stb.toString());
@@ -117,7 +117,7 @@ public class FormattedTextCustomizeTest {
         stb.append("<p id=\"h-1\">SECTION TITLE</p>");
         stb.append("<p><table><row><entry>text</entry></row></table></p>");
 
-        String expect = "\\nSECTION TITLE\\n\\n\\ntext\\n\\n\\n\\n";
+        String expect = "\\nSECTION TITLE\\n \\n\\n text \\n \\n \\n\\n";
 
         FreetextConfig textConfig = new FreetextConfig(prettyPrint, false);
 
@@ -136,7 +136,7 @@ public class FormattedTextCustomizeTest {
         stb.append("<a class=\"figref\">1232<a>");
         stb.append("</p>");
 
-        String expect = "\nFIG-REF\n";
+        String expect = "\nFIG-REF \n";
 
         FreetextConfig textConfig = new FreetextConfig(prettyPrint, false);
         textConfig.replace(HtmlFieldType.FIGREF, "FIG-REF");

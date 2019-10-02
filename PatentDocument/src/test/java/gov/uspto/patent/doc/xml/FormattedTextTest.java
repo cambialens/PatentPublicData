@@ -22,7 +22,7 @@ public class FormattedTextTest {
 		String input = stb.toString();
 
 		StringBuilder expectStb = new StringBuilder();
-		expectStb.append("<h2 level=\"2\">HEADING TEXT</h2>\n");
+		expectStb.append("<h2 level=\"2\">HEADING TEXT</h2> \n");
 		expectStb.append("<p level=\"1\">pargraph text.</p>");
 		String expect = expectStb.toString();
 
@@ -58,15 +58,15 @@ public class FormattedTextTest {
 	public void tailingEntityText() {
 		Map<String, String> variations = new HashMap<String, String>();
 		variations.put("<figref idref=\"DRAWINGS\">FIG. 1</figref><i>a</i>",
-				"<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1a</a>");
+				"<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">\n FIG. 1\n a\n</a>");
 		variations.put("(<figref idref=\"DRAWINGS\">FIG. 1</figref>a)",
-				"(<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1a</a>)");
+				"(\n<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1a</a>\n)");
 		variations.put("<figref idref=\"DRAWINGS\">FIG. 1</figref>a;",
-				"<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1a</a>;");
+				"<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1a</a>\n;");
 		variations.put("<figref idref=\"DRAWINGS\">FIG. 1</figref><i>a;</i>",
-				"<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1a</a>;");
+				"<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1a</a>\n;");
 		variations.put("<figref idref=\"DRAWINGS\">FIG. 1</figref><i>aa</i>",
-				"<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1</a>aa");
+				"<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1</a>\naa");
 		// variations.put("<figref idref=\"DRAWINGS\">FIG. 1</figref> (a)", "<a
 		// idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1a</a>");
 		// variations.put("<figref idref=\"DRAWINGS\">FIG. 1</figref> (<i>a</i>)", "<a
@@ -123,11 +123,11 @@ public class FormattedTextTest {
 		String input = stb.toString();
 
 		StringBuilder expectStb = new StringBuilder();
-		expectStb.append("\n\n\n<table id=\"TBL-0001\">");
+		expectStb.append("<table id=\"TBL-0001\">\n");
 		expectStb.append(
-				"<colgroup><col width=\"21pt\" align=\"left\" /><col width=\"196pt\" align=\"left\" /></colgroup>\n");
-		expectStb.append("<thead><tr><th>head1</th><th align=\"center\">head2</th></tr></thead>\n");
-		expectStb.append("<tbody valign=\"top\"><tr><td></td><td rowspan=\"2\">cell data</td></tr></tbody>\n");
+				" <colgroup>\n  <col width=\"21pt\" align=\"left\" />\n  <col width=\"196pt\" align=\"left\" />\n </colgroup> \n");
+		expectStb.append(" <thead>\n  <tr>\n   <th>head1</th>\n   <th align=\"center\">head2</th>\n  </tr>\n </thead> \n");
+		expectStb.append(" <tbody valign=\"top\">\n  <tr>\n   <td></td>\n   <td rowspan=\"2\">cell data</td>\n  </tr>\n </tbody> \n");
 		expectStb.append("</table>");
 		String expect = expectStb.toString();
 
@@ -162,7 +162,7 @@ public class FormattedTextTest {
 	public void subSupSpaceUnicode() {
 		String input = "R<sub>1 </sub>";
 
-		String expect = "R\u2081 ";
+		String expect = "R\u2081";
 
 		String actual = format.getSimpleHtml(input);
 
@@ -194,10 +194,10 @@ public class FormattedTextTest {
 				+ "to a loss of a cohesive texture and the degradation of other sensory perceptions such as mouth feel, taste, elasticity, and/or the food product not being tender or appealing to an individual. Another common problem encountered during delayed consumption, extended refrigeration and/or freezing of a formulated fried egg is that the food product exhibits syneresis, or the loss of water when frozen and reheated, or when stored for an extended period of time."
 				+ "</p>";
 
-		String expect = "<p id=\"p-0006\" num=\"0005\">In the past" + "<ins>, " + "</ins>"
-				+ "the freezing and/or extended refrigeration of a formulated fried egg has " + "<del>lead</del> "
-				+ "<ins>led </ins>"
-				+ "to a loss of a cohesive texture and the degradation of other sensory perceptions such as mouth feel, taste, elasticity, and/or the food product not being tender or appealing to an individual. Another common problem encountered during delayed consumption, extended refrigeration and/or freezing of a formulated fried egg is that the food product exhibits syneresis, or the loss of water when frozen and reheated, or when stored for an extended period of time."
+		String expect = "<p id=\"p-0006\" num=\"0005\">\n In the past\n" + " <ins>, " + "</ins>\n"
+				+ " the freezing and/or extended refrigeration of a formulated fried egg has \n" + " <del>lead</del> \n "
+				+ "<ins>led </ins>\n"
+				+ " to a loss of a cohesive texture and the degradation of other sensory perceptions such as mouth feel, taste, elasticity, and/or the food product not being tender or appealing to an individual. Another common problem encountered during delayed consumption, extended refrigeration and/or freezing of a formulated fried egg is that the food product exhibits syneresis, or the loss of water when frozen and reheated, or when stored for an extended period of time.\n"
 				+ "</p>";
 
 		String actual = format.getSimpleHtml(input);
@@ -209,7 +209,7 @@ public class FormattedTextTest {
 	public void subSupNonUnicode() {
 		String input = "<sub>Z+1</sub> <sup>Z - 1</sup>";
 
-		String expect = "<sub>Z+1</sub> <sup>Z - 1</sup>";
+		String expect = "<sub>Z+1</sub> \n<sup>Z - 1</sup>";
 
 		String actual = format.getSimpleHtml(input);
 
