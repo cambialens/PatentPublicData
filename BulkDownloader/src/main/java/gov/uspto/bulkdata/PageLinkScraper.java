@@ -223,7 +223,8 @@ public class PageLinkScraper {
 	private final static Pattern[] FILENAME_DATES =
 			new Pattern[] {
 					Pattern.compile("^[A-z]{2,6}([0-9]{6,8})(:?_[A-z]+[0-9]+)?\\.[a-z]+$"),
-					Pattern.compile("^[A-z]{1,6}[0-9]{0,8}-?([0-9]{8})(-SUPP)?\\.[A-z]+$")
+					Pattern.compile("^[A-z]{1,6}[0-9]{0,8}-?([0-9]{8})(-SUPP)?\\.[A-z]+$"), // applications/grants with images (I20050106.ZIP or I20050106-SUPP.ZIP)
+					Pattern.compile("^US[0-9]{11}A1-([0-9]{8})\\.[A-z]+$") // one-off archives (US20070039976A1-20070222.zip)
 			};
 	private final static DateTimeFormatter[] FILE_DATE_FORMATS = new DateTimeFormatter[] {
 			DateTimeFormatter.ofPattern("yyMMdd"), DateTimeFormatter.ofPattern("yyyyMMdd") };
