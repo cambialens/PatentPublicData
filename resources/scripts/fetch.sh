@@ -1,7 +1,7 @@
 #!/bin/bash
 
 USAGE(){
-    echo "Usage: ./`basename $0` <application|application-images|grant> <DateRange>"
+    echo "Usage: ./`basename $0` <application|application-images|grant|grant-images> <DateRange>"
     echo "Usage: ./`basename $0` grant 20180101-20190101"
 }
 
