@@ -220,24 +220,31 @@ public class PageLinkScraper {
 		return list;
 	}
 
-	private final static Pattern FILENAME_DATE = Pattern.compile("^[A-z]{2,6}([0-9]{6,8})(:?_[A-z]+[0-9]+)?\\.[a-z]+$");
+	private final static Pattern[] FILENAME_DATES =
+			new Pattern[] {
+					Pattern.compile("^[A-z]{2,6}([0-9]{6,8})(:?_[A-z]+[0-9]+)?\\.[a-z]+$"),
+					Pattern.compile("^[A-z]{1,6}[0-9]{0,8}-?([0-9]{8})(-SUPP)?\\.[A-z]+$")
+			};
 	private final static DateTimeFormatter[] FILE_DATE_FORMATS = new DateTimeFormatter[] {
 			DateTimeFormatter.ofPattern("yyMMdd"), DateTimeFormatter.ofPattern("yyyyMMdd") };
 
 	public LocalDate parseFileDate(String filename) {
-		Matcher matcher = FILENAME_DATE.matcher(filename);
-		if (matcher.matches()) {
-			String fileDateStr = matcher.group(1);
+		for (Pattern pattern : FILENAME_DATES) {
+			Matcher matcher = pattern.matcher(filename);
 
-			for (DateTimeFormatter fileDateFormat : FILE_DATE_FORMATS) {
-				try {
-					return LocalDate.parse(fileDateStr, fileDateFormat);
-				} catch (DateTimeParseException e) {
-					// ignore.
+			if (matcher.matches()) {
+				String fileDateStr = matcher.group(1);
+
+				for (DateTimeFormatter fileDateFormat : FILE_DATE_FORMATS) {
+					try {
+						return LocalDate.parse(fileDateStr, fileDateFormat);
+					} catch (DateTimeParseException e) {
+						// ignore.
+					}
 				}
+			} else {
+				LOGGER.warn("Filename does not match file date regex: {}", filename);
 			}
-		} else {
-			LOGGER.warn("Filename does not match file date regex: {}", filename);
 		}
 
 		throw new DateTimeParseException("Failed to create LocalDate from filename: " + filename, filename, 0);

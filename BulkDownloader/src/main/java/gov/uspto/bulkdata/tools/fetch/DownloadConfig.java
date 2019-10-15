@@ -116,8 +116,21 @@ public class DownloadConfig extends BulkReaderArguments {
 			case "grant":
 				dataType = BulkDataType.GRANT_REDBOOK_TEXT;
 				break;
+			case "grant-images":
+				dataType = BulkDataType.GRANT_REDBOOK_WITH_IMAGES;
+				break;
 			case "application":
 				dataType = BulkDataType.APPLICATION_REDBOOK_TEXT;
+				for (String yearStr : yearMap.keySet()) {
+					Integer year = Integer.parseInt(yearStr);
+					if (year < 2001) {
+						throw new IllegalArgumentException(
+								"Patent Applications not publicly available before March 2001: " + yearMap.keySet());
+					}
+				}
+				break;
+			case "application-images":
+				dataType = BulkDataType.APPLICATION_REDBOOK_WITH_IMAGES;
 				for (String yearStr : yearMap.keySet()) {
 					Integer year = Integer.parseInt(yearStr);
 					if (year < 2001) {

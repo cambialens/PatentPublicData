@@ -1,7 +1,7 @@
 #!/bin/bash
 
 USAGE(){
-    echo "Usage: ./`basename $0` <application|grant> <DateRange>"
+    echo "Usage: ./`basename $0` <application|application-images|grant> <DateRange>"
     echo "Usage: ./`basename $0` grant 20180101-20190101"
 }
 
@@ -12,6 +12,7 @@ fi
 
 ## ProjectPath is one directory up from script bin directory.
 PROJECTPATH=$( cd $(dirname $0)/.. ; pwd -P )
+echo PROJECTPATH = $PROJECTPATH
 
 #----------------------
 # Config

@@ -8,13 +8,13 @@ public enum BulkDataType {
 
 	GRANT_MULTI_PAGE_IMAGES("data3/patent/grant/multipagetiff/", "zip"),
 	GRANT_SINGLE_PAGE_IMAGES("data/patent/grant/yellowbook/", "tar"),
-	GRANT_REDBOOK_WITH_IMAGES("grant/redbook/", "tar"),
+	GRANT_REDBOOK_WITH_IMAGES("data/patent/grant/redbook/", "zip"),
 	GRANT_REDBOOK_TEXT("data/patent/grant/redbook/fulltext/", "zip"),
 	GRANT_REDBOOK_BIBLIO("data/patent/grant/redbook/bibliographic/", "zip"),
 
 	APPLICATION_MULTI_PAGE_IMAGES("data3/patent/application/multipagetiff/", "zip"),
 	APPLICATION_SINGLE_PAGE_IMAGES("data/patent/application/yellowbook/", "tar"),
-	APPLICATION_REDBOOK_WITH_IMAGES("data/patent/application/redbook/", "tar"),
+	APPLICATION_REDBOOK_WITH_IMAGES("data/patent/application/redbook/", "zip"),
 	APPLICATION_REDBOOK_TEXT("data/patent/application/redbook/fulltext/", "zip"),
 	APPLICATION_REDBOOK_BIBLIO("data/patent/application/redbook/bibliographic/", "zip");
 
