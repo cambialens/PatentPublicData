@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
+import gov.uspto.bulkdata.cli.Fetch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +30,6 @@ import gov.uspto.bulkdata.downloader.DownloadJob;
 import gov.uspto.bulkdata.downloader.Downloader;
 import gov.uspto.bulkdata.tools.grep.DocumentException;
 import gov.uspto.common.DateRange;
-import gov.uspto.common.io.DummyWriter;
 import gov.uspto.patent.PatentReaderException;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -244,7 +244,7 @@ public class DownloadTool {
 			// dataType.getSuffix() + "$";
 			HttpUrl url = HttpUrl.parse(dataType.getURL(year));
 			LOGGER.info("URL: {}, Matcher: {}", url, dateRanges.get(year));
-			List<HttpUrl> yearUrls = scrapper.fetchLinks(url, dateRanges.get(year), dataType.getSuffix());
+			List<HttpUrl> yearUrls = scrapper.fetchLinks(url, dateRanges.get(year), Fetch.LINK_SELECTOR);
 			urls.addAll(yearUrls);
 		}
 

@@ -68,9 +68,9 @@ public class PageLinkScraper {
 		return document.select("a[href]");
 	}
 
-	private Elements fetchPageLinks(Request request, String suffix) throws IOException {
+	private Elements fetchPageLinks(Request request, String linkSelector) throws IOException {
 		Document document = fetchPage(request);
-		return document.select("a[href$=." + suffix + "]");
+		return document.select(linkSelector);
 	}
 
 	/**
@@ -190,20 +190,20 @@ public class PageLinkScraper {
 	}
 
 	/**
-	 * Fetch Links which has suffix and within list of DateRanges
+	 * Fetch Links which match selector and within list of DateRanges
 	 * 
 	 * @param url
 	 * @param dateRanges
-	 * @param suffix
+	 * @param linkSelector
 	 * @return
 	 * @throws IOException
 	 */
-	public List<HttpUrl> fetchLinks(HttpUrl url, List<DateRange> dateRanges, String suffix) throws IOException {
+	public List<HttpUrl> fetchLinks(HttpUrl url, List<DateRange> dateRanges, String linkSelector) throws IOException {
 		Request request = new Request.Builder().url(url).build();
 
 		List<HttpUrl> list = new ArrayList<HttpUrl>();
 
-		for (Element element : fetchPageLinks(request, suffix)) {
+		for (Element element : fetchPageLinks(request, linkSelector)) {
 			String relHref = element.attr("href");
 			String href = element.attr("abs:href");
 

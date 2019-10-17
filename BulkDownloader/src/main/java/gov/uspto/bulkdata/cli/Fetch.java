@@ -59,7 +59,9 @@ import joptsimple.OptionSet;
  */
 public class Fetch {
 
-	public static void main(String[] args)
+    public static final String LINK_SELECTOR = "a[href~=(?i)\\.(tar|zip)$]";
+
+    public static void main(String[] args)
 			throws PatentReaderException, IOException, DocumentException, XPathExpressionException {
 
 		DownloadConfig downloadConfig = new DownloadConfig();

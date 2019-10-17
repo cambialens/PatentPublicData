@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import gov.uspto.bulkdata.cli.Fetch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -157,7 +158,7 @@ public class BulkData {
 			// dataType.getSuffix() + "$";
 			HttpUrl url = HttpUrl.parse(dataType.getURL(year));
 			LOGGER.info("URL: {}, Matcher: {}", url, yearMap.get(year));
-			List<HttpUrl> yearUrls = scrapper.fetchLinks(url, yearMap.get(year), dataType.getSuffix());
+			List<HttpUrl> yearUrls = scrapper.fetchLinks(url, yearMap.get(year), Fetch.LINK_SELECTOR);
 			urls.addAll(yearUrls);
 		}
 		return urls;
