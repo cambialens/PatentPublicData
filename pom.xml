@@ -25,6 +25,15 @@
 
 	<packaging>pom</packaging>
 
+	<distributionManagement>
+		<repository>
+			<id>cambia-repo-ssl</id>
+			<name>Cambia Maven2 Repository</name>
+			<url>dav:https://dev.cambia.org/maven</url>
+			<uniqueVersion>false</uniqueVersion>
+		</repository>
+	</distributionManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -183,5 +192,13 @@
 				</executions>
 			</plugin>
 		</plugins>
+
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav-jackrabbit</artifactId>
+				<version>3.3.4</version>
+			</extension>
+		</extensions>
 	</build>
 </project>
