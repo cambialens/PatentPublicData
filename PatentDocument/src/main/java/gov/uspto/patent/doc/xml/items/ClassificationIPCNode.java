@@ -19,7 +19,7 @@ public class ClassificationIPCNode extends ItemReader<List<PatentClassification>
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClassificationIPCNode.class);
 
-	private static final XPath IPCXP = DocumentHelper.createXPath("classifications-ipcr|self::classifications-ipcr");
+	private static final XPath IPCXP = DocumentHelper.createXPath("classification-ipcr|self::classification-ipcr");
 	private static final XPath SECTIONXP = DocumentHelper.createXPath("section");
 	private static final XPath MCLASSXP = DocumentHelper.createXPath("class");
 	private static final XPath SCLASSXP = DocumentHelper.createXPath("subclass");
