@@ -58,15 +58,15 @@ public class FormattedTextTest {
 	public void tailingEntityText() {
 		Map<String, String> variations = new HashMap<String, String>();
 		variations.put("<figref idref=\"DRAWINGS\">FIG. 1</figref><i>a</i>",
-				"<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">\n FIG. 1\n a\n</a>");
+				"<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1a</a>");
 		variations.put("(<figref idref=\"DRAWINGS\">FIG. 1</figref>a)",
-				"(\n<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1a</a>\n)");
+				"(\n<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1a</a>)");
 		variations.put("<figref idref=\"DRAWINGS\">FIG. 1</figref>a;",
-				"<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1a</a>\n;");
+				"<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1a</a>;");
 		variations.put("<figref idref=\"DRAWINGS\">FIG. 1</figref><i>a;</i>",
-				"<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1a</a>\n;");
+				"<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1a</a>;");
 		variations.put("<figref idref=\"DRAWINGS\">FIG. 1</figref><i>aa</i>",
-				"<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1</a>\naa");
+				"<a idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1</a>aa");
 		// variations.put("<figref idref=\"DRAWINGS\">FIG. 1</figref> (a)", "<a
 		// idref=\"FIG-1\" id=\"FR-0001\" class=\"figref\">FIG. 1a</a>");
 		// variations.put("<figref idref=\"DRAWINGS\">FIG. 1</figref> (<i>a</i>)", "<a
@@ -78,7 +78,7 @@ public class FormattedTextTest {
 		}
 	}
 
-	//@Test
+	// @Test
 	public void tailingFigrefs() {
 		Map<String, String> variations = new HashMap<String, String>();
 
@@ -122,14 +122,11 @@ public class FormattedTextTest {
 		stb.append("</tgroup></table>");
 		String input = stb.toString();
 
-		StringBuilder expectStb = new StringBuilder();
-		expectStb.append("<table id=\"TBL-0001\">\n");
-		expectStb.append(
-				" <colgroup>\n  <col width=\"21pt\" align=\"left\" />\n  <col width=\"196pt\" align=\"left\" />\n </colgroup> \n");
-		expectStb.append(" <thead>\n  <tr>\n   <th>head1</th>\n   <th align=\"center\">head2</th>\n  </tr>\n </thead> \n");
-		expectStb.append(" <tbody valign=\"top\">\n  <tr>\n   <td></td>\n   <td rowspan=\"2\">cell data</td>\n  </tr>\n </tbody> \n");
-		expectStb.append("</table>");
-		String expect = expectStb.toString();
+		String expect = "<table id=\"TBL-0001\">\n" + " <colgroup>\n" + "  <col width=\"21pt\" align=\"left\" />\n"
+				+ "  <col width=\"196pt\" align=\"left\" />\n" + " </colgroup>    \n" + " <thead>\n" + "  <tr>\n"
+				+ "   <th>head1</th>\n" + "   <th align=\"center\">head2</th>\n" + "  </tr>\n" + " </thead> \n"
+				+ " <tbody valign=\"top\">\n" + "  <tr>\n" + "   <td></td>\n" + "   <td rowspan=\"2\">cell data</td>\n"
+				+ "  </tr>\n" + " </tbody> \n" + "</table>";
 
 		String actual = format.getSimpleHtml(input);
 
@@ -140,7 +137,14 @@ public class FormattedTextTest {
 	public void MathML_html() {
 		String input = "<math><mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mrow><mn>4</mn><mo>+</mo><mi>x</mi></mrow><mo>+</mo><mn>4</mn></mrow><mo>=</mo><mn>0</mn></mrow></math>";
 
-		String expect = "<span id=\"MTH-0001\" class=\"math\" format=\"mathml\"><math><mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mrow><mn>4</mn><mo>+</mo><mi>x</mi></mrow><mo>+</mo><mn>4</mn></mrow><mo>=</mo><mn>0</mn></mrow></math></span>";
+		String expect = "<span id=\"MTH-0001\" class=\"math\" format=\"mathml\">\n" + " <math> \n" + "  <mrow> \n"
+				+ "   <mrow> \n" + "    <msup> \n" + "     <mi>\n" + "       x \n" + "     </mi> \n" + "     <mn>\n"
+				+ "       2 \n" + "     </mn> \n" + "    </msup> \n" + "    <mo>\n" + "      + \n" + "    </mo> \n"
+				+ "    <mrow> \n" + "     <mn>\n" + "       4 \n" + "     </mn> \n" + "     <mo>\n" + "       + \n"
+				+ "     </mo> \n" + "     <mi>\n" + "       x \n" + "     </mi> \n" + "    </mrow> \n" + "    <mo>\n"
+				+ "      + \n" + "    </mo> \n" + "    <mn>\n" + "      4 \n" + "    </mn> \n" + "   </mrow> \n"
+				+ "   <mo>\n" + "     = \n" + "   </mo> \n" + "   <mn>\n" + "     0 \n" + "   </mn> \n" + "  </mrow> \n"
+				+ " </math></span>";
 
 		String actual = format.getSimpleHtml(input);
 
@@ -194,10 +198,10 @@ public class FormattedTextTest {
 				+ "to a loss of a cohesive texture and the degradation of other sensory perceptions such as mouth feel, taste, elasticity, and/or the food product not being tender or appealing to an individual. Another common problem encountered during delayed consumption, extended refrigeration and/or freezing of a formulated fried egg is that the food product exhibits syneresis, or the loss of water when frozen and reheated, or when stored for an extended period of time."
 				+ "</p>";
 
-		String expect = "<p id=\"p-0006\" num=\"0005\">\n In the past\n" + " <ins>, " + "</ins>\n"
-				+ " the freezing and/or extended refrigeration of a formulated fried egg has \n" + " <del>lead</del> \n "
-				+ "<ins>led </ins>\n"
-				+ " to a loss of a cohesive texture and the degradation of other sensory perceptions such as mouth feel, taste, elasticity, and/or the food product not being tender or appealing to an individual. Another common problem encountered during delayed consumption, extended refrigeration and/or freezing of a formulated fried egg is that the food product exhibits syneresis, or the loss of water when frozen and reheated, or when stored for an extended period of time.\n"
+		String expect = "<p id=\"p-0006\" num=\"0005\">In the past"
+				+ "<ins>, </ins>the freezing and/or extended refrigeration of a formulated fried egg has "
+				+ "<del>lead</del> "
+				+ "<ins>led </ins>to a loss of a cohesive texture and the degradation of other sensory perceptions such as mouth feel, taste, elasticity, and/or the food product not being tender or appealing to an individual. Another common problem encountered during delayed consumption, extended refrigeration and/or freezing of a formulated fried egg is that the food product exhibits syneresis, or the loss of water when frozen and reheated, or when stored for an extended period of time."
 				+ "</p>";
 
 		String actual = format.getSimpleHtml(input);
